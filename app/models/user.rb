@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :authentications, dependent: :destroy
+  validates :password, presence: true, on: :create
 
   include Clearance::User
 
