@@ -34,9 +34,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 # Use clearance for authentication with email & password
 gem "clearance"
-
 # Use figaro to protect my privacy
 gem "figaro"
+# Use omniauth-facebook to singup by facebook account
+gem "omniauth"
+gem 'omniauth-facebook'
 
 
 group :development, :test do
