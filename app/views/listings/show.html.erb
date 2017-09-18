@@ -1,0 +1,14 @@
+<h1>HERE YOU CAN SEE ONE LISTING</h1>
+<p>Name: <%= @listing.name %></p>
+<p>Owner: <%= @listing.user_id%></p>
+<p>Description: <%= @listing.description %></p>
+<p>Price <%= @listing.price %></p>
+<p>Cancelation rules: <%= @listing.cancelation_rules %></p>
+<% if current_user.id == @listing.user_id %>
+  <%= link_to "Edit listing", edit_user_listing_path(current_user.id, @listing.id) %>
+  <%= link_to "Delete listing", user_listing_path(current_user, @listing), :comfirm => "Are you shure?", :method => :delete %>
+<% end %>
+<br>
+<br>
+<br>
+<%= link_to "Back to profile page", user_path(current_user.id)%>

@@ -17,6 +17,10 @@ class UsersController < Clearance::UsersController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def update
     @user = User.find(params[:id])
     params[:user].delete(:password) if params[:user][:password].blank?
@@ -41,10 +45,6 @@ class UsersController < Clearance::UsersController
     else
       render template: "users/new"
     end
-  end
-
-  def edit
-    @user = User.find(params[:id])
   end
 
   private
