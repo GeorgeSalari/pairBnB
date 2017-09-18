@@ -1,3 +1,11 @@
 <h1>Hello <%= @user.first_name %></h1>
 
-<%= link_to "Edit profile", edit_user_path(@user.id)%>
+<%= link_to "Edit profile", edit_user_path(@user.id) %>
+
+<%= link_to "Add listing", new_user_listing_path(@user.id) %>
+
+<%= link_to "Show all listings", all_listings_path %>
+
+<%= link_to "Show my listings", user_listings_path(@user.id) %>
+
+
