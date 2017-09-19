@@ -42,6 +42,8 @@ gem 'omniauth-facebook'
 # Use bootstrap for css
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'jquery-rails'
+# Use faker to seed db
+gem 'faker'
 
 
 group :development, :test do

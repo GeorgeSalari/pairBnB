@@ -1,6 +1,6 @@
 <% @user_listings.each do |listing| %>
   <p>Name: <%= listing.name %></p>
-  <p>Owner: <%= listing.user_id%></p>
+  <p>Owner: <%= listing.user.first_name%></p>
   <p>Description: <%= listing.description %></p>
   <p>Price <%= listing.price %></p>
   <p>Cancelation rules: <%= listing.cancelation_rules %></p>
