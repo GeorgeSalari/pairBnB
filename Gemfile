@@ -44,6 +44,8 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'jquery-rails'
 # Use faker to seed db
 gem 'faker'
+# Use will paginate gem
+gem 'will_paginate', '~> 3.1.1'
 
 
 group :development, :test do

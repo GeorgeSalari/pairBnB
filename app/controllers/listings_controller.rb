@@ -5,9 +5,9 @@ class ListingsController < ApplicationController
 
   def all
     if params[:city].nil? || params[:city].empty?
-      @listings = Listing.all
+      @listings = Listing.page(params[:page]).order('created_at DESC')
     else
-      @listings = Listing.where(city: params[:city])
+      @listings = Listing.where(city: params[:city]).paginate(:page => params[:page]).order('created_at DESC')
     end
   end
 
@@ -33,7 +33,7 @@ class ListingsController < ApplicationController
   end
 
   def index
-    @user_listings = Listing.where(user_id: params[:user_id])
+    @user_listings = Listing.where(user_id: params[:user_id]).paginate(:page => params[:page]).order('created_at DESC')
   end
 
   def edit
@@ -52,7 +52,9 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params[:listing][:amenities] = params[:listing][:amenities].reject{|x| x.empty?}.join(",")
+    if params[:listing][:amenities]
+      params[:listing][:amenities] = params[:listing][:amenities].reject{|x| x.empty?}.join(",")
+    end
     params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city)
   end
 end
