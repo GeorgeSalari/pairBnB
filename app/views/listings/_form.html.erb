@@ -17,3 +17,18 @@
   <%= form.label :cancelation_rules %>
   <%= form.text_field :cancelation_rules %>
 </div>
+
+<div class="collection-check-boxes-field">
+  <% listing_amenities = @listing.amenities || [] %>
+  <%= form.label "Amenities: "  %>
+  <% ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"].each do |tag| %>
+    <% if listing_amenities.include? tag %>
+      <% checked = true %>
+    <% else %>
+      <% checked = false %>
+    <% end %>
+
+    <%= check_box_tag "listing[amenities][]", tag, checked, {:class => "myclass", :style => "mystyle"} %>
+    <%= label_tag "listing[amenities][]", tag %>
+  <% end %>
+</div>
