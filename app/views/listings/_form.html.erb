@@ -24,7 +24,7 @@
 </div>
 
 <div class="collection-check-boxes-field">
-  <% listing_amenities = @listing.amenities || [] %>
+  <% listing_amenities = @user_listing.amenities || [] %>
   <%= form.label "Amenities: "  %>
   <% ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"].each do |tag| %>
     <% if listing_amenities.include? tag %>

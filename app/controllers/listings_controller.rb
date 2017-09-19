@@ -1,10 +1,14 @@
 class ListingsController < ApplicationController
   def new
-    @listing = Listing.new
+    @user_listing = Listing.new
   end
 
   def all
-    @listings = Listing.all
+    if params[:city].empty?
+      @listings = Listing.all
+    else
+      @listings = Listing.where(city: params[:city])
+    end
   end
 
   def destroy
@@ -29,11 +33,11 @@ class ListingsController < ApplicationController
   end
 
   def index
-    @listings = Listing.where(user_id: params[:user_id])
+    @user_listings = Listing.where(user_id: params[:user_id])
   end
 
   def edit
-    @listing = Listing.find(params[:id])
+    @user_listing = Listing.find(params[:id])
   end
 
   def update

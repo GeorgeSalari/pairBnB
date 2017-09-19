@@ -1,7 +1,7 @@
 <div>
   <h2><%= t(".title") %></h2>
 
-  <%= form_for [current_user, @listing] do |form| %>
+  <%= form_for [current_user, @user_listing] do |form| %>
     <%= render partial: '/listings/form', object: form %>
     <%= form.hidden_field :user_id, :value => current_user.id %>
     <div class="submit-field">
