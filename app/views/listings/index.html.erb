@@ -1,3 +1,4 @@
+<%= will_paginate @user_listings %>
 <% @user_listings.each do |listing| %>
   <p>Name: <%= listing.name %></p>
   <p>Owner: <%= listing.user.first_name%></p>
@@ -19,6 +20,7 @@
   <% end %>
   <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id)%>
 <% end %>
+<%= will_paginate @user_listings %>
 <br>
 <br>
 <br>
