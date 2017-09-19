@@ -48,6 +48,7 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id)
+    params[:listing][:amenities] = params[:listing][:amenities].reject{|x| x.empty?}.join(",")
+    params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities)
   end
 end

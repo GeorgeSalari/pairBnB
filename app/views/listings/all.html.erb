@@ -4,6 +4,15 @@
   <p>Description: <%= listing.description %></p>
   <p>Price <%= listing.price %></p>
   <p>Cancelation rules: <%= listing.cancelation_rules %></p>
+  <p>
+    Amenities: <br>
+    <% all_amenities = listing.amenities.split(",") if listing.amenities %>
+    <% if all_amenities %>
+      <% all_amenities.each do |amenitie|%>
+        <p><%= amenitie %></p>
+      <% end %>
+    <% end %>
+  </p>
   <% if current_user.id == listing.user_id %>
     <%= link_to "Edit listing", edit_user_listing_path(current_user, listing) %>
     <%= link_to "Delete listing", user_listing_path(current_user, listing), :comfirm => 'Are you shure?', :method => :delete %>
