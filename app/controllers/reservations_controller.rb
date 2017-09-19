@@ -6,7 +6,7 @@ class ReservationsController < ApplicationController
 
   def create
     byebug
-    @reservation = Reservation.new(reverstaion_params)
+    @reservation = Reservation.new(reservation_params)
   end
 
   private
