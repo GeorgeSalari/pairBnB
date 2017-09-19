@@ -4,7 +4,7 @@ class ListingsController < ApplicationController
   end
 
   def all
-    if params[:city].empty?
+    if params[:city].nil? || params[:city].empty?
       @listings = Listing.all
     else
       @listings = Listing.where(city: params[:city])
