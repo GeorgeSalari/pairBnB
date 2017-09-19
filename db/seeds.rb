@@ -5,3 +5,52 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Seed Users
+user = {}
+user['password'] = '123456'
+gender = ["F", "M"]
+
+ActiveRecord::Base.transaction do
+  20.times do
+    user['first_name'] = Faker::Name.first_name
+    user['last_name'] = Faker::Name.last_name
+    user['email'] = Faker::Internet.email
+    user['gender'] = gender[rand(0..1)]
+    user['phone'] = Faker::PhoneNumber.phone_number
+    user['birthday'] = Faker::Date.between(50.years.ago, Date.today)
+
+    User.create(user)
+  end
+end
+
+# Seed Listings
+listing = {}
+uids = []
+string = ""
+one = ""
+User.all.each { |u| uids << u.id }
+am = ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"]
+ActiveRecord::Base.transaction do
+  40.times do
+    rand(0..am.count).times do
+      one = ""
+      if string.empty?
+        string = am[rand(0..am.count - 1)]
+      else
+        one = am[rand(0..am.count - 1)]
+        string += " #{one}" if !string.include? one
+      end
+    end
+    listing['name'] = Faker::App.name
+    listing['city'] = Faker::Address.city
+    listing['amenities'] = string
+    listing['price'] = rand(80..500)
+    listing['description'] = Faker::Hipster.sentence
+
+    listing['user_id'] = uids.sample
+
+    Listing.create(listing)
+    string = ""
+  end
+end
