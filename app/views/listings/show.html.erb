@@ -16,6 +16,8 @@
 <% if current_user.id == @listing.user_id %>
   <%= link_to "Edit listing", edit_user_listing_path(current_user.id, @listing.id) %>
   <%= link_to "Delete listing", user_listing_path(current_user, @listing), :comfirm => "Are you shure?", :method => :delete %>
+<% else %>
+  <%= link_to "Book now", new_user_reservation_path(:listing_id => @listing.id)  %>
 <% end %>
 <br>
 <br>

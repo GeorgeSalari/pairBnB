@@ -1,0 +1,16 @@
+<div>
+  <h2><%= t(".title") %></h2>
+  <%= form_for [current_user, @reservation] do |form| %>
+    <%= render partial: '/reservations/form', object: form %>
+    <%= form.hidden_field :listing_id, :value => @listing.id %>
+    <%= form.hidden_field :user_id, :value => current_user.id %>
+    <div class="submit-field">
+      <%= form.submit %>
+    </div>
+
+  <% end %>
+</div>
+<br>
+<br>
+<br>
+<%= link_to "Back to profile page", user_path(current_user.id)%>
