@@ -39,6 +39,9 @@ gem "figaro"
 # Use omniauth-facebook to singup by facebook account
 gem "omniauth"
 gem 'omniauth-facebook'
+# Use bootstrap for css
+gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'jquery-rails'
 
 
 group :development, :test do

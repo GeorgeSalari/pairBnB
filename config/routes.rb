@@ -9,11 +9,8 @@ Rails.application.routes.draw do
     resources :listings
   end
 
-  get "/listings" => "listings#all", as: "all_listings"
-
-
-
   root "users#show"
+  get "/listings" => "listings#all", as: "all_listings"
   get "/sign_in" => "sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "users#new", as: "sign_up"
