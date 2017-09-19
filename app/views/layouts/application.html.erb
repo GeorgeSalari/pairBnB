@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <div id="header">
-    <% if signed_in? -%>
-      <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-    <% else -%>
-      <%= link_to t(".sign_in"), sign_in_path %>
-      <%= link_to t(".sign_up"), sign_up_path %>
-    <% end -%>
-  </div>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <div id="header">
+      <% if signed_in? -%>
+        <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
+      <% else -%>
+        <%= link_to t(".sign_in"), sign_in_path %>
+        <%= link_to t(".sign_up"), sign_up_path %>
+      <% end -%>
+    </div>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
 
   <div id="flash">
     <% flash.each do |key, value| -%>
