@@ -77,7 +77,7 @@ class ListingsController < ApplicationController
 
   def listing_params
     if params[:listing]
-      if params[:listing][:amenities]
+      if params[:listing][:amenities].class == Array
         params[:listing][:amenities] = params[:listing][:amenities].join(",")
       end
       params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city)
