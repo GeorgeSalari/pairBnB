@@ -53,7 +53,7 @@ class ListingsController < ApplicationController
 
   def listing_params
     if params[:listing][:amenities]
-      params[:listing][:amenities] = params[:listing][:amenities].reject{|x| x.empty?}.join(",")
+      params[:listing][:amenities] = params[:listing][:amenities].join(",")
     end
     params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city)
   end

@@ -23,9 +23,3 @@
   <% end %>
 <% end %>
 <%= will_paginate @listings %>
-<br>
-<br>
-<br>
-<% if current_user %>
-  <%= link_to "Back to profile page", user_path(current_user.id)%>
-<% end %>
