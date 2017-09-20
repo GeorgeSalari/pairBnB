@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :listings
   has_many :reservations
 
+  enum status: [:customer, :moderator, :superadmin]
+
   include Clearance::User
 
   def self.create_with_auth_and_hash(authentication, auth_hash)

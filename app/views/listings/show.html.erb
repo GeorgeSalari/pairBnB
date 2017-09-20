@@ -1,4 +1,5 @@
 <h1>HERE YOU CAN SEE ONE LISTING</h1>
+<p> <%= "Your list is not approved yet!" if @listing.verification == false %> </p>
 <p>Name: <%= @listing.name %></p>
 <p>Owner: <%= @listing.user.first_name%></p>
 <p>Description: <%= @listing.description %></p>
@@ -19,7 +20,3 @@
 <% else %>
   <%= link_to "Book now", new_user_reservation_path(:listing_id => @listing.id)  %>
 <% end %>
-<br>
-<br>
-<br>
-<%= link_to "Back to profile page", user_path(current_user.id)%>

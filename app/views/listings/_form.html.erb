@@ -24,16 +24,17 @@
 </div>
 
 <div class="collection-check-boxes-field">
+  <% amenities = ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"]%>
   <% listing_amenities = @user_listing.amenities || [] %>
   <%= form.label "Amenities: "  %>
-  <% ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"].each do |tag| %>
+  <% amenities.each do |tag| %>
     <% if listing_amenities.include? tag %>
       <% checked = true %>
     <% else %>
       <% checked = false %>
     <% end %>
 
-    <%= check_box_tag "listing[amenities][]", tag, checked, {:class => "myclass", :style => "mystyle"} %>
-    <%= label_tag "listing[amenities][]", tag %>
+    <%= form.check_box :amenities, { multiple: true, checked: checked }, tag, false %>
+    <%= tag %>
   <% end %>
 </div>
