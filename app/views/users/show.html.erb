@@ -15,4 +15,6 @@
 
 <%= link_to "Show my listings", user_listings_path(@user.id) %>
 
+<%= link_to "Show my reservations", user_reservations_path(@user.id) %>
+
 <%= button_to "Delete profile photo", user_path(@user), method: :patch %>
