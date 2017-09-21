@@ -73,6 +73,14 @@ class ListingsController < ApplicationController
     end
   end
 
+  def add_images
+    @listing = Listing.find(params[:id])
+    new_images = params[:listing][:images]
+    @listing.images += new_images
+    @listing.save
+    redirect_to user_listing_path(current_user, @listing)
+  end
+
   private
 
   def listing_params

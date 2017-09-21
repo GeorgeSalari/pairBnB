@@ -7,6 +7,10 @@
     <div class="submit-field">
       <%= form.submit %>
     </div>
+    <div>
+      <%= form.label "New upload" %>
+      <%= form.file_field :images, multiple: true %>
+    </div>
 
   <% end %>
 </div>

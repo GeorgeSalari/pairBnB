@@ -4,9 +4,21 @@
 
   <%= form_for [current_user, @user_listing] do |form| %>
     <%= render partial: '/listings/form', object: form %>
-    <div class="submit-field">
-      <%= form.submit %>
+
+    <div>
+      <%= form.label "New upload" %>
+      <%= form.file_field :images, multiple: true %>
+      <%= form.submit "New upload"%>
     </div>
 
   <% end %>
+
+  <%= form_for @user_listing, url: add_images_path(@user_listing), method: :patch do |form| %>
+    <div>
+      <%= form.label "Add file to exist one" %>
+      <%= form.file_field :images, multiple: true %>
+      <%= form.submit "Add file" %>
+    </div>
+  <% end %>
+
 </div>
