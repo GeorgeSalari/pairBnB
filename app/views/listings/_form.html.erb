@@ -23,6 +23,11 @@
   <%= form.text_field :cancelation_rules %>
 </div>
 
+<div>
+  <%= form.label :images %>
+  <%= form.file_field :images, multiple: true %>
+</div>
+
 <div class="collection-check-boxes-field">
   <% amenities = ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"]%>
   <% listing_amenities = @user_listing.amenities || [] %>
