@@ -2,7 +2,7 @@
 <p> <%= "Your list is not approved yet!" if @listing.verification == false %> </p>
 
 <div>
-  <% if !@listing.images.empty? %>
+  <% if !@listing.images.empty? && current_user == @listing.user_id %>
     <%= form_for @listing, url: remove_images_path(@listing), method: :patch do |f| %>
       <% @listing.images.each_with_index do |image, index| %>
         <%= image_tag(image.url) %>
