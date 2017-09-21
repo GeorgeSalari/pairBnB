@@ -1,5 +1,23 @@
 <h1>HERE YOU CAN SEE ONE LISTING</h1>
 <p> <%= "Your list is not approved yet!" if @listing.verification == false %> </p>
+
+<div>
+  <% if !@listing.images.empty? %>
+    <%= form_for @listing, url: remove_images_path(@listing), method: :patch do |f| %>
+      <% @listing.images.each_with_index do |image, index| %>
+        <%= image_tag(image.url) %>
+        <label>
+          <%= f.check_box :images, { multiple: true, checked: false }, index, false %>
+          Remove image
+        </label>
+      <% end %>
+      <br>
+      <%= f.submit "Delete photo" %>
+    <% end %>
+  <% end %>
+</div>
+
+<br>
 <p>Name: <%= @listing.name %></p>
 <p>Owner: <%= @listing.user.first_name%></p>
 <p>Description: <%= @listing.description %></p>

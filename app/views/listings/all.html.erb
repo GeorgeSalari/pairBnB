@@ -1,5 +1,9 @@
 <%= will_paginate @listings %>
 <% @listings.each do |listing| %>
+  <div>
+    <%= image_tag(listing.images[0].url) if listing.images[0] %>
+  </div>
+  <br>
   <p>Name: <%= listing.name %></p>
   <p>Owner: <%= listing.user.first_name%></p>
   <p>Description: <%= listing.description %></p>

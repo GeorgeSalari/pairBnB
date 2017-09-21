@@ -1,5 +1,12 @@
 <h1>Hello <%= @user.first_name %></h1>
 
+<% if @user.profile_photo.url %>
+  <%= image_tag(@user.profile_photo.url) %>
+  <br>
+<% end %>
+
+
+
 <%= link_to "Edit profile", edit_user_path(@user.id) %>
 
 <%= link_to "Add listing", new_user_listing_path(@user.id) %>
@@ -8,4 +15,4 @@
 
 <%= link_to "Show my listings", user_listings_path(@user.id) %>
 
-
+<%= button_to "Delete profile photo", user_path(@user), method: :patch %>

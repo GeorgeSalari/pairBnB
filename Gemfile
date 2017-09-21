@@ -46,6 +46,10 @@ gem 'jquery-rails'
 gem 'faker'
 # Use will paginate gem
 gem 'will_paginate', '~> 3.1.1'
+# Use carrierwave to upload file
+gem 'carrierwave', '~> 1.0'
+# Use minimagick to resize upload file
+gem "mini_magick"
 
 
 group :development, :test do

@@ -23,11 +23,17 @@ class UsersController < Clearance::UsersController
 
   def update
     @user = User.find(params[:id])
-    params[:user].delete(:password) if params[:user][:password].blank?
-    if @user.update(user_params)
-      redirect_to user_path(@user)
+    if params[:user]
+      params[:user].delete(:password) if params[:user][:password].blank?
+      if @user.update(user_params)
+        redirect_to user_path(@user)
+      else
+        redirect_to edit_user_path(@user)
+      end
     else
-      redirect_to edit_user_path(@user)
+      @user.remove_profile_photo!
+      @user.save
+      redirect_to user_path(@user)
     end
   end
 
@@ -68,7 +74,7 @@ class UsersController < Clearance::UsersController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :last_name, :first_name, :phone, :gender, :birthday)
+    params.require(:user).permit(:email, :password, :last_name, :first_name, :phone, :gender, :birthday, :profile_photo)
   end
 
 end

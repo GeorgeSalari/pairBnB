@@ -73,6 +73,35 @@ class ListingsController < ApplicationController
     end
   end
 
+  def add_images
+    @listing = Listing.find(params[:id])
+    new_images = params[:listing][:images]
+    @listing.images += new_images
+    @listing.save
+    redirect_to user_listing_path(current_user, @listing)
+  end
+
+  def remove_image_at_index
+    @listing = Listing.find(params[:id])
+    indices = params[:listing][:images]
+    images = @listing.images.select.with_index do |image, index|
+      if indices.include? index.to_s
+        image.try(:remove!)
+        false
+      else
+        true
+      end
+    end
+    if images.empty?
+      @listing.remove_images!
+      @listing.save
+      redirect_to user_listing_path(current_user, @listing)
+    else
+      @listing.update(images: images)
+      redirect_to user_listing_path(current_user, @listing)
+    end
+  end
+
   private
 
   def listing_params
@@ -80,7 +109,7 @@ class ListingsController < ApplicationController
       if params[:listing][:amenities].class == Array
         params[:listing][:amenities] = params[:listing][:amenities].join(",")
       end
-      params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city)
+      params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city, {images: []})
     end
   end
 end

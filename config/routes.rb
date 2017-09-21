@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   get "/sign_up" => "users#new", as: "sign_up"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
+  patch "/listing/:id/add_images" => "listings#add_images", as: "add_images"
+  patch "/listing/:id/remove_images" => "listings#remove_image_at_index", as: "remove_images"
 end
