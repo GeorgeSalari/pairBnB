@@ -45,5 +45,12 @@ class ListingUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  def extension_whitelist
+    %w(jpg jpeg gif png)
+  end
+
+  include CarrierWave::MiniMagick
+
+  process resize_to_fit: [300, 300]
 
 end
