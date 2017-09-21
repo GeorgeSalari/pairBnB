@@ -8,20 +8,20 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <nav class="navbar navbar-light bg-light justify-content-between">
-    <div id="header">
+  <nav class="navbar  bg-light navbar-inverse" >
+      <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
+        <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: 'Enter city' %>
+        <%= button_tag "Search", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
+      <% end %>
       <% if signed_in? -%>
-        <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-        <button><%= link_to t(".profile"), user_path(current_user.id)%></button>
+          <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
+          <button>
+            <%= link_to image_tag(current_user.profile_photo.url(:nav)), user_path(current_user.id)%>
+          </button>
       <% else -%>
         <%= link_to t(".sign_in"), sign_in_path %>
         <%= link_to t(".sign_up"), sign_up_path %>
       <% end -%>
-    </div>
-    <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-      <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: 'Enter city' %>
-      <%= button_tag "Search", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
-    <% end %>
   </nav>
 
   <div id="flash">
