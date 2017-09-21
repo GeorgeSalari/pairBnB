@@ -92,8 +92,14 @@ class ListingsController < ApplicationController
         true
       end
     end
-    @listing.update(images: images)
-    redirect_to user_listing_path(current_user, @listing)
+    if images.empty?
+      @listing.remove_images!
+      @listing.save
+      redirect_to user_listing_path(current_user, @listing)
+    else
+      @listing.update(images: images)
+      redirect_to user_listing_path(current_user, @listing)
+    end
   end
 
   private
