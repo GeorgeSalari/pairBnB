@@ -81,6 +81,21 @@ class ListingsController < ApplicationController
     redirect_to user_listing_path(current_user, @listing)
   end
 
+  def remove_image_at_index
+    @listing = Listing.find(params[:id])
+    indices = params[:listing][:images]
+    images = @listing.images.select.with_index do |image, index|
+      if indices.include? index.to_s
+        image.try(:remove!)
+        false
+      else
+        true
+      end
+    end
+    @listing.update(images: images)
+    redirect_to user_listing_path(current_user, @listing)
+  end
+
   private
 
   def listing_params
