@@ -6,6 +6,11 @@ class User < ApplicationRecord
 
   enum status: [:customer, :moderator, :superadmin]
 
+  class User < ActiveRecord::Base
+    mount_uploader :profile_photo, UserUploader
+  end
+
+
   include Clearance::User
 
   def self.create_with_auth_and_hash(authentication, auth_hash)
