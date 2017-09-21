@@ -5,8 +5,15 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    byebug
+    params[:reservation][:end_date] = Date.strptime(reservation_params[:end_date], '%m/%d/%Y')
+    params[:reservation][:start_date] = Date.strptime(reservation_params[:start_date], '%m/%d/%Y')
     @reservation = Reservation.new(reservation_params)
+    byebug
+    if @reservation.save
+      redirect_to user_reservation_path(current_user, @reservation)
+    else
+      render template: "reservations/new"
+    end
   end
 
   private

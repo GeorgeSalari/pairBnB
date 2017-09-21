@@ -42,7 +42,7 @@ class ListingsController < ApplicationController
     if @listing.save
       redirect_to user_listing_path(current_user, @listing)
     else
-      render template: "listing/new"
+      render template: "listings/new"
     end
   end
 
