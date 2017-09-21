@@ -15,9 +15,15 @@
       <% end %>
       <% if signed_in? -%>
           <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-          <button>
-            <%= link_to image_tag(current_user.profile_photo.url(:nav)), user_path(current_user.id)%>
-          </button>
+          <% if current_user.profile_photo.url %>
+            <button>
+              <%= link_to image_tag(current_user.profile_photo.url(:nav)), user_path(current_user.id)%>
+            </button>
+          <% else %>
+            <button>
+              <%= link_to t('.profile'), user_path(current_user.id)%>
+            </button>
+          <% end %>
       <% else -%>
         <%= link_to t(".sign_in"), sign_in_path %>
         <%= link_to t(".sign_up"), sign_up_path %>
