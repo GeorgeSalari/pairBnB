@@ -1,5 +1,13 @@
 <h1>HERE YOU CAN SEE ONE LISTING</h1>
 <p> <%= "Your list is not approved yet!" if @listing.verification == false %> </p>
+<div>
+  <% if @listing.images %>
+    <% @listing.images.each do |image| %>
+      <%= image_tag(image.url) %>
+    <% end %>
+  <% end %>
+</div>
+<br>
 <p>Name: <%= @listing.name %></p>
 <p>Owner: <%= @listing.user.first_name%></p>
 <p>Description: <%= @listing.description %></p>

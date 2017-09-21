@@ -1,5 +1,9 @@
 <%= will_paginate @user_listings %>
 <% @user_listings.each do |listing| %>
+  <div>
+    <%= image_tag(listing.images[0].url) if listing.images[0] %>
+  </div>
+  <br>
   <p> <%= "Your list is not approved yet!" if listing.verification == false %> </p>
   <p>Name: <%= listing.name %></p>
   <p>Owner: <%= listing.user.first_name%></p>
