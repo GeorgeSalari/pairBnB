@@ -80,7 +80,7 @@ class ListingsController < ApplicationController
       if params[:listing][:amenities].class == Array
         params[:listing][:amenities] = params[:listing][:amenities].join(",")
       end
-      params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city)
+      params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city, {images: []})
     end
   end
 end
