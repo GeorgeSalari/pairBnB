@@ -6,9 +6,7 @@ class User < ApplicationRecord
 
   enum status: [:customer, :moderator, :superadmin]
 
-  class User < ActiveRecord::Base
-    mount_uploader :profile_photo, UserUploader
-  end
+  mount_uploader :profile_photo, UserUploader
 
 
   include Clearance::User
