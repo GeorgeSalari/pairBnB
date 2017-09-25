@@ -8,25 +8,10 @@ class ListingsController < ApplicationController
   end
 
   def all
-    if current_user.customer?
-      if params[:city].nil? || params[:city].empty?
-        @listings = Listing.where(verification: true).page(params[:page]).order('created_at DESC')
-      else
-        @listings = Listing.where(city: params[:city], verification: true).paginate(:page => params[:page]).order('created_at DESC')
-      end
-    elsif current_user.moderator?
-      if params[:city].nil? || params[:city].empty?
-        @listings = Listing.where(verification: false).page(params[:page]).order('created_at')
-      else
-        @listings = Listing.where(city: params[:city], verification: false).paginate(:page => params[:page]).order('created_at')
-      end
-    else
-      if params[:city].nil? || params[:city].empty?
-        @listings = Listing.page(params[:page]).order('created_at')
-      else
-        @listings = Listing.where(city: params[:city]).paginate(:page => params[:page]).order('created_at')
-      end
+    if params[:start_date] && params[:end_date]
+      Listing.check_available_day(params[:start_date], params[:end_date])
     end
+    @listings = Listing.check_user_status(params[:city], current_user).page(params[:page]).order('created_at')
   end
 
   def destroy
@@ -76,6 +61,7 @@ class ListingsController < ApplicationController
   def add_images
     @listing = Listing.find(params[:id])
     new_images = params[:listing][:images]
+    byebug
     @listing.images += new_images
     @listing.save
     redirect_to user_listing_path(current_user, @listing)
