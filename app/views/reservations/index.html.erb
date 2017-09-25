@@ -1,0 +1,8 @@
+<h1>HERE YOU SEE ALL YOUR RESERVATIONS</h1>
+
+<% @reservations.each do |reservation| %>
+  <p>
+    <%= link_to 'You book:', user_reservation_path(current_user, reservation) %>
+    <%= link_to reservation.listing.name, user_listing_path(current_user, reservation.listing_id) %>
+  </p>
+<% end %>
