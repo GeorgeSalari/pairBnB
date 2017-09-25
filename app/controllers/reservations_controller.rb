@@ -9,15 +9,23 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    params[:reservation][:end_date] = reservation_params[:end_date].to_date
-    params[:reservation][:start_date] = reservation_params[:start_date].to_date
-    @reservation = Reservation.new(reservation_params)
-    if @reservation.save
-      redirect_to user_reservation_path(current_user, @reservation)
-    else
-      @listing = @reservation.listing
-      flash.now[:error] = "Dates are overlapping"
+    if params[:start_date] && params[:end_date]
+      @reservation = Reservation.new
+      @reservation.start_date = params[:start_date].to_date
+      @reservation.end_date = params[:end_date].to_date
+      @listing = Listing.find(params[:listing_id])
       render template: "reservations/new"
+    else
+      params[:reservation][:end_date] = reservation_params[:end_date].to_date
+      params[:reservation][:start_date] = reservation_params[:start_date].to_date
+      @reservation = Reservation.new(reservation_params)
+      if @reservation.save
+        redirect_to user_reservation_path(current_user, @reservation)
+      else
+        @listing = @reservation.listing
+        flash.now[:error] = "Dates are overlapping"
+        render template: "reservations/new"
+      end
     end
   end
 
@@ -28,7 +36,9 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:end_date, :start_date, :pax, :listing_id, :user_id)
+    if params[:reservation]
+      params.require(:reservation).permit(:end_date, :start_date, :pax, :listing_id, :user_id)
+    end
   end
 end
 

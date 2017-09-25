@@ -34,7 +34,6 @@ class Listing < ApplicationRecord
       end
       check_listing
     end
-    byebug
     if city && !city.empty?
       self.where(id: listings.map(&:id), city: city)
     else
