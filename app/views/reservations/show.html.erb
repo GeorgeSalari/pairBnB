@@ -1,0 +1,17 @@
+<h1>HERE YOU CAN SEE ONE RESERVATION</h1>
+
+<% if current_user.id == @reservation.user_id %>
+  <div>
+    <p> You book: <%= link_to @reservation.listing.name, user_listing_path(current_user, @reservation.listing_id) %></p>
+    <p> Start date <%= @reservation.start_date %></p>
+    <p> End date <%= @reservation.end_date %></p>
+    <p> For <%= @reservation.pax %>
+      <%=  @reservation.pax == 1 ? "person" : "persons" %>
+    </p>
+    <% day_count = (@reservation.end_date - @reservation.start_date).to_i %>
+    <p>
+      Price: <%= @reservation.listing.price * day_count %> for <%= day_count %>
+      <%= day_count == 1 ? "day" : "days" %>
+    </p>
+  </div>
+<% end %>

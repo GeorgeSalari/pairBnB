@@ -9,13 +9,14 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new(reservation_params)
-    params[:reservation][:end_date] = Date.strptime(reservation_params[:end_date], '%m/%d/%Y')
-    params[:reservation][:start_date] = Date.strptime(reservation_params[:start_date], '%m/%d/%Y')
+    params[:reservation][:end_date] = reservation_params[:end_date].to_date
+    params[:reservation][:start_date] = reservation_params[:start_date].to_date
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
       redirect_to user_reservation_path(current_user, @reservation)
     else
+      @listing = @reservation.listing
+      flash.now[:error] = "Dates are overlapping"
       render template: "reservations/new"
     end
   end
