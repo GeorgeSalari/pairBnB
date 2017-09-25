@@ -26,9 +26,19 @@ class Listing < ApplicationRecord
     end
   end
 
-  def self.check_available_day(start_day, end_day)
-    aaa = Reservation.where(:end_date => start_day..end_day)
-    bbb = Reservation.where(:start_date => start_day..end_day)
+  def self.check_available_day(start_day, end_day, city)
+    listings = Listing.all.select do |listing|
+      check_listing = true
+      listing.reservations.each do |book|
+        check_listing = false if (start_day.to_date..end_day.to_date).overlaps?(book.start_date..book.end_date)
+      end
+      check_listing
+    end
     byebug
+    if city && !city.empty?
+      self.where(id: listings.map(&:id), city: city)
+    else
+      self.where(id: listings.map(&:id))
+    end
   end
 end
