@@ -29,8 +29,8 @@
   </nav>
 
   <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-    <%= text_field_tag "start_date", nil, {class: "form-control mr-sm-2", placeholder: "Start date"} %>
-    <%= text_field_tag "end_date", nil, {class: "form-control mr-sm-2", placeholder: "Start date"} %>
+    <%= date_field_tag "start_date", nil, {class: "form-control mr-sm-2", placeholder: "Start date"} %>
+    <%= date_field_tag "end_date", nil, {class: "form-control mr-sm-2", placeholder: "Start date"} %>
     <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
   <% end %>
 
