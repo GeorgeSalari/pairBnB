@@ -8,6 +8,9 @@ class ListingsController < ApplicationController
   end
 
   def all
+    if params[:start_date] && params[:end_date]
+      Listing.check_available_day(params[:start_date], params[:end_date])
+    end
     @listings = Listing.check_user_status(params[:city], current_user).page(params[:page]).order('created_at')
   end
 

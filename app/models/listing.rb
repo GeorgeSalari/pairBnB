@@ -25,4 +25,10 @@ class Listing < ApplicationRecord
       end
     end
   end
+
+  def self.check_available_day(start_day, end_day)
+    aaa = Reservation.where(:end_date => start_day..end_day)
+    bbb = Reservation.where(:start_date => start_day..end_day)
+    byebug
+  end
 end
