@@ -33,7 +33,7 @@ class BraintreeController < ApplicationController
       @reservation.start_date = params[:start_date].to_date
       @reservation.end_date = params[:end_date].to_date
       @listing = Listing.find(params[:listing_id])
-      flash.now[:error] = "Transaction failed. Please try again."
+      flash.now[:danger] = "Transaction failed. Please try again."
       render template: "reservations/new"
     end
   end

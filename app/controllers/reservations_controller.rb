@@ -23,7 +23,7 @@ class ReservationsController < ApplicationController
         redirect_to braintree_new_path(listing_id: @reservation.listing_id, start_date: @reservation.start_date, end_date: @reservation.end_date)
       else
         @listing = @reservation.listing
-        flash.now[:error] = "Dates are overlapping"
+        flash.now[:danger] = "Dates are overlapping"
         render template: "reservations/new"
       end
     end
