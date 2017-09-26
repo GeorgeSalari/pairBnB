@@ -15,7 +15,6 @@ class ListingsController < ApplicationController
       @end = params[:end_date]
       @listings = Listing.check_available_day(params[:start_date], params[:end_date], @@city).page(params[:page]).order('created_at')
       flash[:notice] = "No available listings in #{@@city} from #{params[:start_date].to_date} to #{params[:end_date].to_date}" if @listings.empty?
-      @@city = nil
     end
   end
 
