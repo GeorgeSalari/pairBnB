@@ -21,12 +21,15 @@ class BraintreeController < ApplicationController
      )
 
     if result.success?
+      @listing = Listing.find(params[:listing_id])
       @reservation = Reservation.new()
       @reservation.user_id = current_user.id
       @reservation.listing_id = params[:listing_id]
       @reservation.start_date = params[:start_date].to_date
       @reservation.end_date = params[:end_date].to_date
       @reservation.save
+      customer = @reservation.user
+      ReservationMailer.booking_email(customer, @listing, @reservation.id).deliver_now
       redirect_to user_reservation_path(current_user, @reservation), :flash => { :success => "Transaction successful!" }
     else
       @reservation = Reservation.new
