@@ -26,13 +26,6 @@ class ReservationsController < ApplicationController
         flash.now[:error] = "Dates are overlapping"
         render template: "reservations/new"
       end
-      # if @reservation.save
-      #   redirect_to user_reservation_path(current_user, @reservation)
-      # else
-      #   @listing = @reservation.listing
-      #   flash.now[:error] = "Dates are overlapping"
-      #   render template: "reservations/new"
-      # end
     end
   end
 

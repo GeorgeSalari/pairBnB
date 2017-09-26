@@ -6,7 +6,7 @@
 </h2>
 <div class="demo-frame" data-token="<%= @client_token %>">
 
-  <%= form_for :checkout_form, html: { id: "cardForm"} do |form| %>
+  <%= form_for :checkout_form, url: braintree_checkout_path(listing_id: @listing.id, start_date: @start, end_date: @end), html: { id: "cardForm"} do |form| %>
 
     <%= form.label :card_number, "Credit Card Number", html: {class: "hosted-fields--label"} %>
     <div id="card-number" class="hosted-field"></div>
