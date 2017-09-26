@@ -50,6 +50,8 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'carrierwave', '~> 1.0'
 # Use minimagick to resize upload file
 gem "mini_magick"
+# Use fog for upload to aws
+gem 'fog'
 
 
 group :development, :test do
