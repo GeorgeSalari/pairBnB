@@ -24,8 +24,12 @@
       <%= link_to "Edit listing", edit_user_listing_path(current_user, listing) %>
       <%= link_to "Delete listing", user_listing_path(current_user, listing), :comfirm => 'Are you shure?', :method => :delete %>
     <% end %>
-    <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id)%>
-    <%= button_to "Book now", user_reservations_path(current_user, :listing_id => listing.id, start_date: @start, end_date: @end), method: :post if @start %>
+    <% if @start %>
+      <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id, start_date: @start, end_date: @end)%>
+      <%= button_to "Book now", user_reservations_path(current_user, :listing_id => listing.id, start_date: @start, end_date: @end), method: :post %>
+    <% else %>
+      <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id)%>
+    <% end %>
     <%= button_to "Approve", user_listing_path(current_user, listing), method: :put if !current_user.customer? && listing.verification == false %>
   <% end %>
 <% end %>
