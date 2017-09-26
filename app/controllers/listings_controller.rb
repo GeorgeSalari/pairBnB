@@ -37,6 +37,10 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.find(params[:id])
+    if params[:start_date] && params[:end_date]
+      @start = params[:start_date]
+      @end = params[:end_date]
+    end
   end
 
   def index
