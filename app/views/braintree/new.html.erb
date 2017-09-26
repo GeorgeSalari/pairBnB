@@ -1,2 +1,26 @@
-<h1>Braintree#new</h1>
-<p>Find me in app/views/braintree/new.html.erb</p>
+<h2>
+  You payment is: <%= "#{@listing.price * (@end.to_date - @start.to_date).to_i}$" %><br>
+  <%= "For #{@listing.name}, for #{(@end.to_date - @start.to_date).to_i} days" %><br>
+  <%= "checkin date: #{@start}" %><br>
+  <%= "checkout date: #{@end}" %>
+</h2>
+<div class="demo-frame">
+
+  <%= form_for :checkout_form, html: { id: "cardForm"} do |form| %>
+
+    <%= form.label :card_number, "Credit Card Number", html: {class: "hosted-fields--label"} %>
+    <div id="card-number" class="hosted-field"></div>
+
+    <%= form.label :expiration_date, "Expiration Date", html: {class: "hosted-fields--label"} %>
+    <div id="expiration-date" class="hosted-field"></div>
+
+    <%= form.label :cvv, "CVV", html: {class: "hosted-fields--label"} %>
+    <div id="cvv" class="hosted-field"></div>
+
+    <%= form.hidden_field "payment_method_nonce" %>
+
+    <div class="button-container">
+      <%= form.submit "Purchase", disabled: true, class: "btn btn-primary", id: "submit-payment-btn" %>
+    </div>
+  <% end %>
+</div>

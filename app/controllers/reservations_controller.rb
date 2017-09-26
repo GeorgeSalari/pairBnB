@@ -19,14 +19,20 @@ class ReservationsController < ApplicationController
       params[:reservation][:end_date] = reservation_params[:end_date].to_date
       params[:reservation][:start_date] = reservation_params[:start_date].to_date
       @reservation = Reservation.new(reservation_params)
-      redirect_to braintree_new_path
-      if @reservation.save
-        redirect_to user_reservation_path(current_user, @reservation)
+      if @reservation.check_overlap_day
+        redirect_to braintree_new_path(listing_id: @reservation.listing_id, start_date: @reservation.start_date, end_date: @reservation.end_date)
       else
         @listing = @reservation.listing
         flash.now[:error] = "Dates are overlapping"
         render template: "reservations/new"
       end
+      # if @reservation.save
+      #   redirect_to user_reservation_path(current_user, @reservation)
+      # else
+      #   @listing = @reservation.listing
+      #   flash.now[:error] = "Dates are overlapping"
+      #   render template: "reservations/new"
+      # end
     end
   end
 
