@@ -13,4 +13,8 @@ class Reservation < ApplicationRecord
       end
     end
   end
+
+  def price
+    (self.listing.price * (self.end_date - self.start_date)).to_i
+  end
 end

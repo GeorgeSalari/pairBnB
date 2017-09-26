@@ -10,7 +10,7 @@
     </p>
     <% day_count = (@reservation.end_date - @reservation.start_date).to_i %>
     <p>
-      Price: <%= @reservation.listing.price * day_count %> for <%= day_count %>
+      Price: <%= @reservation.price %> for <%= day_count %>
       <%= day_count == 1 ? "day" : "days" %>
     </p>
   </div>

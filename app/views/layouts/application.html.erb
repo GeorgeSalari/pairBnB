@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Load the Client component. -->
+  <script src="https://js.braintreegateway.com/web/3.6.3/js/client.min.js"></script>
+
+  <!-- Load the Hosted Fields component. -->
+  <script src="https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js"></script>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tag %>
@@ -36,7 +41,7 @@
 
   <div id="flash">
     <% flash.each do |key, value| -%>
-      <div id="flash_<%= key %>"><%=h value %></div>
+      <div class="alert alert-<%= key %>"><%=h value %></div>
     <% end %>
   </div>
 
