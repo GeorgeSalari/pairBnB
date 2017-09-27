@@ -56,6 +56,8 @@ gem 'fog'
 gem 'braintree'
 # Use sidekiq for backgroudn job for emails
 gem 'sidekiq'
+# Use rails_12factor to makes running app easier
+gem 'rails_12factor', group: :production
 
 
 group :development, :test do
