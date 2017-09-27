@@ -29,7 +29,7 @@ class BraintreeController < ApplicationController
       @reservation.end_date = params[:end_date].to_date
       @reservation.save
       customer = @reservation.user
-      ReservationMailer.booking_email(customer, @listing, @reservation.id).deliver_now
+      SendLettersJob.perform_later(customer, @listing, @reservation.id)
       redirect_to user_reservation_path(current_user, @reservation), :flash => { :success => "Transaction successful!" }
     else
       @reservation = Reservation.new

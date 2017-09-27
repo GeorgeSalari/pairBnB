@@ -54,6 +54,9 @@ gem "mini_magick"
 gem 'fog'
 # Use braintree for payment
 gem 'braintree'
+# Use sidekiq for backgroudn job for emails
+gem 'sidekiq'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
