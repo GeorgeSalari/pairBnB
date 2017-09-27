@@ -8,7 +8,12 @@ class ListingsController < ApplicationController
   end
 
   def all
-    @@city = params[:city] if params[:city]
+    if params[:city]
+      @@city = params[:city]
+    elsif params[:city].nil? && (defined? @@city != nil)
+    else
+      @@city = ""
+    end
     @listings = Listing.check_user_status(params[:city], current_user).page(params[:page]).order('created_at')
     if params[:start_date] && params[:end_date]
       @start = params[:start_date]
