@@ -58,6 +58,9 @@ gem 'braintree'
 gem 'sidekiq'
 # Use rails_12factor to makes running app easier
 gem 'rails_12factor', group: :production
+# Use skylight for track app speed
+gem "skylight"
+
 
 
 group :development, :test do
