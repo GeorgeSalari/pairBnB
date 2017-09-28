@@ -3,30 +3,37 @@ class Listing < ApplicationRecord
   has_many :reservations, dependent: :destroy
   self.per_page = 10
   mount_uploaders :images, ListingUploader
+  scope :city, -> (city) { where city: city }
+  scope :verification, -> (verification) { where verification: verification }
+  scope :num_of_bedrooms, -> (num_of_bedrooms) { where num_of_bedrooms: num_of_bedrooms}
+  scope :num_of_bathrooms, -> (num_of_bathrooms) { where num_of_bathrooms: num_of_bathrooms}
+  scope :price, -> (price) { where('price <= ?', price) }
 
   def self.check_user_status(city, user)
-    if user.customer?
+    if user.nil? || user.customer?
       if city.nil? || city.empty?
-        listings = Listing.where(verification: true)
+        Listing.verification(true)
       else
-        listings = Listing.where(city: city, verification: true)
+        Listing.city(city).verification(true)
       end
     elsif user.moderator?
       if city.nil? || city.empty?
-        listings = Listing.where(verification: false)
+        Listing.verification(false)
       else
-        listings = Listing.where(city: city, verification: false)
+        Listing.city(city).verification(false)
       end
     else
       if city.nil? || city.empty?
-        listings = Listing.all
+        Listing.all
       else
-        listings = Listing.where(city: city)
+        Listing.city(city)
       end
     end
   end
 
-  def self.check_available_day(start_day, end_day, city)
+  def self.check_available_day(start_day, end_day, city, user)
+    @start_day = start_day
+    @end_day = end_day
     listings = Listing.all.select do |listing|
       check_listing = true
       listing.reservations.each do |book|
@@ -34,10 +41,27 @@ class Listing < ApplicationRecord
       end
       check_listing
     end
-    if city && !city.empty?
-      self.where(id: listings.map(&:id), city: city)
+    self.check_user_status(city, user).where(id: listings.map(&:id))
+  end
+
+  def self.get_start_day
+    @start_day
+  end
+
+  def self.get_end_day
+    @end_day
+  end
+
+  def self.save_city(city)
+    if city
+      @@city = city
+    elsif city.nil? && (defined? @@city != nil)
     else
-      self.where(id: listings.map(&:id))
+      @@city = ""
     end
+  end
+
+  def self.get_city
+    @@city
   end
 end

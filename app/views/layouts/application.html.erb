@@ -13,7 +13,11 @@
 <body>
   <nav class="navbar  bg-light navbar-inverse" >
       <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-        <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: 'Enter city' %>
+        <% if city.nil? || city.empty? %>
+          <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: "Enter city" %>
+        <% else %>
+          <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: "#{city}" %>
+        <% end %>
         <%= button_tag "Search", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
       <% end %>
       <% if signed_in? -%>
@@ -34,8 +38,28 @@
   </nav>
 
   <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-    <%= date_field_tag "start_date", nil, {class: "form-control mr-sm-2", placeholder: "Start date"} %>
-    <%= date_field_tag "end_date", nil, {class: "form-control mr-sm-2", placeholder: "Start date"} %>
+    <%= label_tag "Start date: " %>
+    <% if start_date.nil? %>
+      <%= date_field_tag "start_date", Date.tomorrow, {class: "form-control mr-sm-2"} %>
+    <% else %>
+      <%= date_field_tag "start_date", "#{start_date}", {class: "form-control mr-sm-2"} %>
+    <% end %>
+    <%= label_tag "End date: " %>
+    <% if end_date.nil? %>
+      <%= date_field_tag "end_date", Date.tomorrow + 1.day, {class: "form-control mr-sm-2"} %>
+    <% else %>
+      <%= date_field_tag "end_date", "#{end_date}", {class: "form-control mr-sm-2"} %>
+    <% end %>
+    <%= label_tag "Number of bedrooms: " %>
+    <%= number_field_tag :num_of_bedrooms, params[:num_of_bedrooms], {class: "form-control mr-sm-2"} %>
+    <%= label_tag "Number of bathrooms: " %>
+    <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2"} %>
+    <%= label_tag "Max price: " %>
+    <% if params[:price].to_i > 10 %>
+      <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: params[:price] } %>
+    <% else %>
+      <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: 0 } %>
+    <% end %>
     <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
   <% end %>
 
