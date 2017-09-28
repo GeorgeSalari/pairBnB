@@ -8,17 +8,12 @@ class ListingsController < ApplicationController
   end
 
   def all
-    if params[:city]
-      @@city = params[:city]
-    elsif params[:city].nil? && (defined? @@city != nil)
-    else
-      @@city = ""
-    end
+    Listing.save_city(params[:city])
     @listings = Listing.check_user_status(params[:city], current_user).page(params[:page]).order('created_at')
     if params[:start_date] && params[:end_date]
       @start = params[:start_date]
       @end = params[:end_date]
-      @listings = Listing.check_available_day(params[:start_date], params[:end_date], @@city).page(params[:page]).order('created_at')
+      @listings = Listing.check_available_day(params[:start_date], params[:end_date], Listing.get_city, current_user).page(params[:page]).order('created_at')
       flash[:notice] = "No available listings in #{@@city} from #{params[:start_date].to_date} to #{params[:end_date].to_date}" if @listings.empty?
     end
   end

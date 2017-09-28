@@ -13,7 +13,11 @@
 <body>
   <nav class="navbar  bg-light navbar-inverse" >
       <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-        <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: 'Enter city' %>
+        <% if city.empty? %>
+          <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: "Enter city" %>
+        <% else %>
+          <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: "#{city}" %>
+        <% end %>
         <%= button_tag "Search", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
       <% end %>
       <% if signed_in? -%>

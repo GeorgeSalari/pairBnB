@@ -1,5 +1,7 @@
 module ListingsHelper
-  def search_city
-    @@city if (defined? @@city != nil)
+
+
+  def city
+    Listing.get_city
   end
 end
