@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921042625) do
+ActiveRecord::Schema.define(version: 20170928053418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20170921042625) do
     t.string "city"
     t.boolean "verification", default: false
     t.json "images"
+    t.integer "num_of_bedrooms"
+    t.integer "num_of_bathrooms"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 

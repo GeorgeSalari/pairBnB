@@ -31,6 +31,7 @@ string = ""
 one = ""
 User.all.each { |u| uids << u.id }
 am = ["Elevator", "Pets allowed", "Kitchen", "Air conditioning", "Internet", "Pool"]
+city = ["KL", "Phuket", "Bangkok"]
 ActiveRecord::Base.transaction do
   40.times do
     rand(0..am.count).times do
@@ -43,11 +44,13 @@ ActiveRecord::Base.transaction do
       end
     end
     listing['name'] = Faker::App.name
-    listing['city'] = Faker::Address.city
+    listing['city'] = city.sample
     listing['amenities'] = string
-    listing['price'] = rand(80..500)
+    listing['price'] = rand(10..100)
     listing['description'] = Faker::Hipster.sentence
-
+    listing["cancelation_rules"] = "no rules"
+    listing["num_of_bedrooms"] = rand(1..4)
+    listing["num_of_bathrooms"] = rand(1..listing["num_of_bedrooms"])
     listing['user_id'] = uids.sample
 
     Listing.create(listing)

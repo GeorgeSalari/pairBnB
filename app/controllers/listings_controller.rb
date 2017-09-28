@@ -9,11 +9,15 @@ class ListingsController < ApplicationController
 
   def all
     Listing.save_city(params[:city])
-    @listings = Listing.check_user_status(params[:city], current_user).page(params[:page]).order('created_at')
+    listing = Listing.all
+    filtering_params(params).each do |key, value|
+      listing = Listing.public_send(key, value) if value.present?
+    end
+    @listings = listing.check_user_status(params[:city], current_user).page(params[:page]).order('created_at')
     if params[:start_date] && params[:end_date]
       @start = params[:start_date]
       @end = params[:end_date]
-      @listings = Listing.check_available_day(params[:start_date], params[:end_date], Listing.get_city, current_user).page(params[:page]).order('created_at')
+      @listings = listing.check_available_day(params[:start_date], params[:end_date], Listing.get_city, current_user).page(params[:page]).order('created_at')
       flash[:notice] = "No available listings in #{@@city} from #{params[:start_date].to_date} to #{params[:end_date].to_date}" if @listings.empty?
     end
   end
@@ -104,5 +108,9 @@ class ListingsController < ApplicationController
       end
       params.require(:listing).permit(:name, :description, :price, :cancelation_rules, :user_id, :amenities, :city, {images: []})
     end
+  end
+
+  def filtering_params(params)
+    params.slice(:num_of_bedrooms, :num_of_bathrooms)
   end
 end
