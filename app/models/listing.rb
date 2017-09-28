@@ -7,6 +7,7 @@ class Listing < ApplicationRecord
   scope :verification, -> (verification) { where verification: verification }
   scope :num_of_bedrooms, -> (num_of_bedrooms) { where num_of_bedrooms: num_of_bedrooms}
   scope :num_of_bathrooms, -> (num_of_bathrooms) { where num_of_bathrooms: num_of_bathrooms}
+  scope :price, -> (price) { where('price <= ?', price) }
 
   def self.check_user_status(city, user)
     if user.nil? || user.customer?

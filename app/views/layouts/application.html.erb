@@ -51,9 +51,11 @@
       <%= date_field_tag "end_date", "#{end_date}", {class: "form-control mr-sm-2"} %>
     <% end %>
     <%= label_tag "Number of bedrooms: " %>
-    <%= number_field_tag :num_of_bedrooms, nil, {class: "form-control mr-sm-2"} %>
+    <%= number_field_tag :num_of_bedrooms, params[:num_of_bedrooms], {class: "form-control mr-sm-2"} %>
     <%= label_tag "Number of bathrooms: " %>
-    <%= number_field_tag :num_of_bathrooms, nil, {class: "form-control mr-sm-2"} %>
+    <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2"} %>
+    <%= label_tag "Max price: " %>
+    <%= range_field_tag :price, nil, {min: 1, max: 200, step: 5, value: 0} %>
     <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
   <% end %>
 

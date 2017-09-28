@@ -18,7 +18,7 @@ class ListingsController < ApplicationController
       @start = params[:start_date]
       @end = params[:end_date]
       @listings = listing.check_available_day(params[:start_date], params[:end_date], Listing.get_city, current_user).page(params[:page]).order('created_at')
-      flash[:notice] = "No available listings in #{@@city} from #{params[:start_date].to_date} to #{params[:end_date].to_date}" if @listings.empty?
+      flash[:notice] = "No available listings in #{Listing.get_city} from #{params[:start_date].to_date} to #{params[:end_date].to_date}" if @listings.empty?
     end
   end
 
@@ -111,6 +111,7 @@ class ListingsController < ApplicationController
   end
 
   def filtering_params(params)
-    params.slice(:num_of_bedrooms, :num_of_bathrooms)
+    params[:price] = "" if params[:price].to_i < 10
+    params.slice(:num_of_bedrooms, :num_of_bathrooms, :price)
   end
 end
