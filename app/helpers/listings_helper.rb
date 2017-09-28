@@ -10,4 +10,8 @@ module ListingsHelper
   def city
     Listing.get_city
   end
+
+  def max_price
+    Listing.maximum(:price)
+  end
 end
