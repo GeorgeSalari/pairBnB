@@ -62,6 +62,6 @@ class Listing < ApplicationRecord
   end
 
   def self.get_city
-    @@city
+    @@city if (defined? @@city != nil)
   end
 end
