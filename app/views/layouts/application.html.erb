@@ -12,7 +12,8 @@
 </head>
 <body>
   <nav class="navbar  bg-light navbar-inverse" >
-      <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
+    <div id="left_part_navbar">
+      <%= form_tag all_listings_path, class: "form-inline inline-block", :method => 'get' do %>
         <% if city.nil? || city.empty? %>
           <%= text_field_tag :city, "", class: 'form-control mr-sm-2', placeholder: "Enter city" %>
         <% else %>
@@ -20,48 +21,66 @@
         <% end %>
         <%= button_tag "Search", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
       <% end %>
+      <%= button_tag "Advance Search", {class: 'btn btn-outline-success my-2 my-sm-0', id: "advance_search_button"}%>
+    </div>
+    <div id="right_part_navbar">
       <% if signed_in? -%>
-          <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-          <% if current_user.profile_photo.url %>
-            <button>
-              <%= link_to image_tag(current_user.profile_photo.url(:nav)), user_path(current_user.id)%>
-            </button>
-          <% else %>
-            <button>
-              <%= link_to t('.profile'), user_path(current_user.id)%>
-            </button>
-          <% end %>
+        <%= form_tag sign_out_path, class: "inline-block", method: "delete" do %>
+          <%= button_tag "Sign out", {class: "btn btn-outline-success my-2 my-sm-0"} %>
+        <% end %>
+        <% if current_user.profile_photo.url %>
+          <button class="circle">
+            <%= link_to image_tag(current_user.profile_photo.url(:nav), id: "profile_photo"), user_path(current_user.id)%>
+          </button>
+        <% else %>
+          <button>
+            <%= link_to t('.profile'), user_path(current_user.id)%>
+          </button>
+        <% end %>
       <% else -%>
-        <%= link_to t(".sign_in"), sign_in_path %>
-        <%= link_to t(".sign_up"), sign_up_path %>
+        <%= form_tag sign_in_path, class: "inline-block", method: "get" do %>
+          <%= button_tag "Sign in", {class: "btn btn-outline-success my-2 my-sm-0"} %>
+        <% end %>
+        <%= form_tag sign_up_path, class: "inline-block", method: "get" do %>
+          <%= button_tag "Sign up", {class: "btn btn-outline-success my-2 my-sm-0"} %>
+        <% end %>
       <% end -%>
+    </div>
   </nav>
 
-  <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-    <%= label_tag "Start date: " %>
-    <% if start_date.nil? %>
-      <%= date_field_tag "start_date", Date.tomorrow, {class: "form-control mr-sm-2"} %>
-    <% else %>
-      <%= date_field_tag "start_date", "#{start_date}", {class: "form-control mr-sm-2"} %>
+  <div id="advance_search" class="hidden">
+    <%= form_tag all_listings_path, :method => 'get' do %>
+      <div class="advance_search">
+        <%= label_tag "Start date: ",nil , {class: ".inline-block"} %>
+        <% if start_date.nil? %>
+          <%= date_field_tag "start_date", Date.tomorrow, {class: "form-control mr-sm-2 date_input_width"} %>
+        <% else %>
+          <%= date_field_tag "start_date", "#{start_date}", {class: "form-control mr-sm-2 date_input_width"} %>
+        <% end %>
+        <%= label_tag "End date: " %>
+        <% if end_date.nil? %>
+          <%= date_field_tag "end_date", Date.tomorrow + 1.day, {class: "form-control mr-sm-2 date_input_width"} %>
+        <% else %>
+          <%= date_field_tag "end_date", "#{end_date}", {class: "form-control mr-sm-2 date_input_width"} %>
+        <% end %>
+      </div>
+      <div class="advance_search">
+        <%= label_tag "Number of bedrooms: " %>
+        <%= number_field_tag :num_of_bedrooms, params[:num_of_bedrooms], {class: "form-control mr-sm-2 input_width"} %>
+        <%= label_tag "Number of bathrooms: " %>
+        <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2 input_width"} %>
+      </div>
+      <div class="advance_search" >
+        <%= label_tag "Max price: " %>
+        <% if params[:price].to_i > 10 %>
+          <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: params[:price] } %>
+        <% else %>
+          <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: 0 } %>
+        <% end %>
+        <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0', id: "aplay_advance_search"}%>
+      </div>
     <% end %>
-    <%= label_tag "End date: " %>
-    <% if end_date.nil? %>
-      <%= date_field_tag "end_date", Date.tomorrow + 1.day, {class: "form-control mr-sm-2"} %>
-    <% else %>
-      <%= date_field_tag "end_date", "#{end_date}", {class: "form-control mr-sm-2"} %>
-    <% end %>
-    <%= label_tag "Number of bedrooms: " %>
-    <%= number_field_tag :num_of_bedrooms, params[:num_of_bedrooms], {class: "form-control mr-sm-2"} %>
-    <%= label_tag "Number of bathrooms: " %>
-    <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2"} %>
-    <%= label_tag "Max price: " %>
-    <% if params[:price].to_i > 10 %>
-      <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: params[:price] } %>
-    <% else %>
-      <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: 0 } %>
-    <% end %>
-    <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
-  <% end %>
+  </div>
 
   <div id="flash">
     <% flash.each do |key, value| -%>
@@ -70,5 +89,12 @@
   </div>
 
   <%= yield %>
+  <script>
+    $(document).ready(function(){
+      $("#advance_search_button").click(function(){
+        $("#advance_search").toggleClass("hidden");
+      })
+    })
+  </script>
 </body>
 </html>

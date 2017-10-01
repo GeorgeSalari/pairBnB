@@ -1,38 +1,48 @@
-<%= will_paginate @listings %>
+<div id="all">
+  <p><%= will_paginate @listings %></p>
 
-<% @listings.each do |listing| %>
-  <div>
-    <%= image_tag(listing.images[0].url) if listing.images[0] %>
-  </div>
-  <br>
-  <p>Name: <%= listing.name %></p>
-  <p>Owner: <%= listing.user.first_name%></p>
-  <p>Description: <%= listing.description %></p>
-  <p>Number of bedrooms: <%= listing.num_of_bedrooms %></p>
-  <p>Number of bathrooms: <%= listing.num_of_bathrooms %></p>
-  <p>Price: <%= listing.price %></p>
-  <p>Cancelation rules: <%= listing.cancelation_rules %></p>
-  <p>
-    Amenities: <br>
-    <% all_amenities = listing.amenities.split(",") if listing.amenities %>
-    <% if all_amenities %>
-      <% all_amenities.each do |amenitie|%>
-        <p><%= amenitie %></p>
+  <% @listings.each do |listing| %>
+    <div class="one_listing">
+      <% if listing.images[0] %>
+        <div>
+          <%= image_tag(listing.images[0].url)%>
+        </div>
       <% end %>
-    <% end %>
-  </p>
-  <% if current_user %>
-    <% if current_user.id == listing.user_id %>
-      <%= link_to "Edit listing", edit_user_listing_path(current_user, listing) %>
-      <%= link_to "Delete listing", user_listing_path(current_user, listing), :comfirm => 'Are you shure?', :method => :delete %>
-    <% end %>
-    <% if @start %>
-      <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id, start_date: @start, end_date: @end)%>
-      <%= button_to "Book now", user_reservations_path(current_user, :listing_id => listing.id, start_date: @start, end_date: @end), method: :post %>
-    <% else %>
-      <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id)%>
-    <% end %>
-    <%= button_to "Approve", user_listing_path(current_user, listing), method: :put if !current_user.customer? && listing.verification == false %>
+      <p>Name: <%= listing.name %></p>
+      <p>Owner: <%= listing.user.first_name%></p>
+      <p>Description: <%= listing.description %></p>
+      <p>Number of bedrooms: <%= listing.num_of_bedrooms %></p>
+      <p>Number of bathrooms: <%= listing.num_of_bathrooms %></p>
+      <p>Price: <%= listing.price %></p>
+      <p>Cancelation rules: <%= listing.cancelation_rules %></p>
+      <p>
+        Amenities: <br>
+        <% all_amenities = listing.amenities.split(",") if listing.amenities %>
+        <% if all_amenities %>
+          <% all_amenities.each do |amenitie|%>
+            <p><%= amenitie %></p>
+          <% end %>
+        <% end %>
+      </p>
+      <% if current_user %>
+        <% if current_user.id == listing.user_id %>
+          <%= link_to "Edit listing", edit_user_listing_path(current_user, listing) %>
+          <%= link_to "Delete listing", user_listing_path(current_user, listing), :comfirm => 'Are you shure?', :method => :delete %>
+        <% end %>
+        <% if @start %>
+          <button class= "btn btn-outline-success my-2 my-sm-0 d-inline">
+            <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id, start_date: @start, end_date: @end)%>
+          </button>
+          <%= form_tag user_reservations_path(current_user, :listing_id => listing.id, start_date: @start, end_date: @end), class: "d-inline", method: :post do %>
+            <%= button_tag "Book now", {class: "btn btn-outline-success my-2 my-sm-0" }  %>
+          <% end %>
+        <% else %>
+          <button class= "btn btn-outline-success my-2 my-sm-0">
+            <%= link_to "Open Listing", user_listing_path(current_user.id, listing.id)%>
+          </button>
+        <% end %>
+        <%= button_to "Approve", user_listing_path(current_user, listing), method: :put if !current_user.customer? && listing.verification == false %>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
-<%= will_paginate @listings %>
+</div>

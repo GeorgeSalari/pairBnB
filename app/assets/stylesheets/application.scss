@@ -2,3 +2,70 @@
 @import "listings";
 @import "users";
 @import "braintree";
+
+.circle {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 30px;
+  border: none;
+}
+
+.inline-block {
+  display: inline-block;
+  margin-right: 30px;
+}
+
+#profile_photo {
+  width: 40px;
+  height: 40px;
+}
+
+#right_part_navbar {
+  margin-right: 30px;
+}
+
+#left_part_navbar {
+  margin-left: 30px;
+}
+
+body {
+  margin:0;
+  padding: 0;
+  text-align: center;
+  background-image: image_url('all_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.advance_search {
+  width: 100%;
+}
+
+.date_input_width {
+  width:170px;
+}
+
+.input_width {
+  width:78px;
+}
+
+body div form div.advance_search input {
+  display: inline;
+}
+
+#aplay_advance_search {
+  margin-left: 230px;
+}
+
+#advance_search {
+  text-align: left;
+  margin-left: 150px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.hidden {
+  display: none;
+}
