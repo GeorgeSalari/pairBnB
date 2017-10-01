@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
 
 
-  root "users#show"
+  root "listings#all"
   get "/listings" => "listings#all", as: "all_listings"
   get "/sign_in" => "sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
