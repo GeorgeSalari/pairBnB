@@ -15,3 +15,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+  $("#advance_search_button").click(function(){
+    $("#advance_search").toggleClass("hidden");
+  })
+})
