@@ -48,7 +48,7 @@
     </div>
   </nav>
 
-  <div id="advance_search">
+  <div id="advance_search" >
     <%= form_tag all_listings_path, :method => 'get' do %>
       <div class="advance_search">
         <%= label_tag "Start date: ",nil , {class: ".inline-block"} %>
@@ -71,7 +71,7 @@
         <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2 input_width"} %>
       </div>
       <div class="advance_search" >
-        <%= label_tag "Max price: ", nil, { id: "advance_search_max_price"} %>
+        <%= label_tag "Max price: " %>
         <% if params[:price].to_i > 10 %>
           <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: params[:price] } %>
         <% else %>

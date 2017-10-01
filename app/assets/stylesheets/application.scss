@@ -31,7 +31,12 @@
 }
 
 body {
+  margin:0;
+  padding: 0;
   text-align: center;
+  background-image: image_url('all_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .advance_search {
@@ -54,13 +59,13 @@ body div form div.advance_search input {
   margin-left: 230px;
 }
 
-#advance_search_max_price {
-  margin-left: -10px;
+#advance_search {
+  text-align: left;
+  margin-left: 150px;
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 
-#advance_search {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #f8f9fa;
+.hidden {
+  display: none;
 }
