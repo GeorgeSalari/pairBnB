@@ -48,7 +48,7 @@
     </div>
   </nav>
 
-  <div id="advance_search" >
+  <div id="advance_search" class="hidden">
     <%= form_tag all_listings_path, :method => 'get' do %>
       <div class="advance_search">
         <%= label_tag "Start date: ",nil , {class: ".inline-block"} %>
@@ -89,5 +89,12 @@
   </div>
 
   <%= yield %>
+  <script>
+    $(document).ready(function(){
+      $("#advance_search_button").click(function(){
+        $("#advance_search").toggleClass("hidden");
+      })
+    })
+  </script>
 </body>
 </html>
