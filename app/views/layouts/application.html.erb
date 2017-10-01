@@ -48,31 +48,39 @@
     </div>
   </nav>
 
-  <%= form_tag all_listings_path, class: "form-inline", :method => 'get' do %>
-    <%= label_tag "Start date: " %>
-    <% if start_date.nil? %>
-      <%= date_field_tag "start_date", Date.tomorrow, {class: "form-control mr-sm-2"} %>
-    <% else %>
-      <%= date_field_tag "start_date", "#{start_date}", {class: "form-control mr-sm-2"} %>
+  <div id="advance_search">
+    <%= form_tag all_listings_path, :method => 'get' do %>
+      <div class="advance_search">
+        <%= label_tag "Start date: ",nil , {class: ".inline-block"} %>
+        <% if start_date.nil? %>
+          <%= date_field_tag "start_date", Date.tomorrow, {class: "form-control mr-sm-2 date_input_width"} %>
+        <% else %>
+          <%= date_field_tag "start_date", "#{start_date}", {class: "form-control mr-sm-2 date_input_width"} %>
+        <% end %>
+        <%= label_tag "End date: " %>
+        <% if end_date.nil? %>
+          <%= date_field_tag "end_date", Date.tomorrow + 1.day, {class: "form-control mr-sm-2 date_input_width"} %>
+        <% else %>
+          <%= date_field_tag "end_date", "#{end_date}", {class: "form-control mr-sm-2 date_input_width"} %>
+        <% end %>
+      </div>
+      <div class="advance_search">
+        <%= label_tag "Number of bedrooms: " %>
+        <%= number_field_tag :num_of_bedrooms, params[:num_of_bedrooms], {class: "form-control mr-sm-2 input_width"} %>
+        <%= label_tag "Number of bathrooms: " %>
+        <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2 input_width"} %>
+      </div>
+      <div class="advance_search" >
+        <%= label_tag "Max price: ", nil, { id: "advance_search_max_price"} %>
+        <% if params[:price].to_i > 10 %>
+          <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: params[:price] } %>
+        <% else %>
+          <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: 0 } %>
+        <% end %>
+        <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0', id: "aplay_advance_search"}%>
+      </div>
     <% end %>
-    <%= label_tag "End date: " %>
-    <% if end_date.nil? %>
-      <%= date_field_tag "end_date", Date.tomorrow + 1.day, {class: "form-control mr-sm-2"} %>
-    <% else %>
-      <%= date_field_tag "end_date", "#{end_date}", {class: "form-control mr-sm-2"} %>
-    <% end %>
-    <%= label_tag "Number of bedrooms: " %>
-    <%= number_field_tag :num_of_bedrooms, params[:num_of_bedrooms], {class: "form-control mr-sm-2"} %>
-    <%= label_tag "Number of bathrooms: " %>
-    <%= number_field_tag :num_of_bathrooms, params[:num_of_bathrooms], {class: "form-control mr-sm-2"} %>
-    <%= label_tag "Max price: " %>
-    <% if params[:price].to_i > 10 %>
-      <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: params[:price] } %>
-    <% else %>
-      <%= range_field_tag :price, nil, {min: 1, max: max_price, step: 5, value: 0 } %>
-    <% end %>
-    <%= button_tag "Aplay", {class: 'btn btn-outline-success my-2 my-sm-0'}%>
-  <% end %>
+  </div>
 
   <div id="flash">
     <% flash.each do |key, value| -%>

@@ -33,3 +33,34 @@
 body {
   text-align: center;
 }
+
+.advance_search {
+  width: 100%;
+}
+
+.date_input_width {
+  width:170px;
+}
+
+.input_width {
+  width:78px;
+}
+
+body div form div.advance_search input {
+  display: inline;
+}
+
+#aplay_advance_search {
+  margin-left: 230px;
+}
+
+#advance_search_max_price {
+  margin-left: -10px;
+}
+
+#advance_search {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f8f9fa;
+}
