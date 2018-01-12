@@ -27,7 +27,7 @@
       <% if current_user %>
         <% if current_user.id == listing.user_id %>
           <%= link_to "Edit listing", edit_user_listing_path(current_user, listing) %>
-          <%= link_to "Delete listing", user_listing_path(current_user, listing), :comfirm => 'Are you shure?', :method => :delete %>
+          <%= link_to "Delete listing", user_listing_path(current_user, listing), :comfirm => 'Вы уверены?', :method => :delete %>
         <% end %>
         <% if @start %>
           <button class= "btn btn-outline-success my-2 my-sm-0 d-inline">
